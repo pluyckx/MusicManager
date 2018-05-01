@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Add Release</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <datalist id="data_artists">
+        {{.DataArtists}}
+    </datalist>
+    <datalist id="data_labels">
+        {{.DataLabels}}
+    </datalist>
+    <datalist id="data_titles">
+        {{.DataTitles}}
+    </datalist>
+    <datalist id="data_releases">
+        {{.DataReleases}}
+    </datalist>
+    <form action="add_release_action.html" method="POST" autocomplete="on">
+        <table>
+            <tbody>
+                <tr>
+                    <td>Artist:</td>
+                    <td>
+                        <input type="text" list="data_artists" placeholder="Artist" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>Title:</td>
+                    <td>
+                        <input type="text" list="data_titles" placeholder="Title" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>Label:</td>
+                    <td>
+                        <input type="text" list="data_labels" placeholder="Label" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>Release:</td>
+                    <td>
+                        <input type="text" list="data_releases" placeholder="Release" />
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <button type="submit">Add</button>
+    </form>
+</body>
+
+</html>
