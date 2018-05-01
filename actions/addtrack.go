@@ -1,8 +1,12 @@
 package actions
 
 import (
+	"fmt"
 	"html/template"
 	"net/http"
+
+	"github.com/pluyckx/MusicManager/app"
+	"github.com/pluyckx/MusicManager/database"
 )
 
 const (
@@ -88,6 +92,30 @@ func (ath *addTrackAction) serveHTTP(out http.ResponseWriter, request *http.Requ
 	data.Label = request.Form.Get(addTrackLabel)
 	data.Release = request.Form.Get(addTrackRelease)
 	data.Title = request.Form.Get(addTrackTitle)
+
+	db := app.GetDatabase()
+	err = db.Open()
+
+	if err != nil {
+		panic(err)
+	}
+
+	defer func() {
+		if errcls := db.Close(); errcls != nil {
+			panic(errcls)
+		}
+	}()
+
+	tbl := db.GetArtistsTable()
+	err = tbl.Add(data.Artist)
+
+	if err != nil {
+		if database.IsNotUniqueError(err) {
+			data.Artist = fmt.Sprintf("%s [exists]", data.Artist)
+		} else {
+			panic(err)
+		}
+	}
 
 	err = ath.template.Execute(out, data)
 
