@@ -9,43 +9,51 @@
 </head>
 
 <body>
-    <datalist id="data_artists">
-        {{.DataArtists}}
+    <datalist id="list_artists">
+        {{range .Artists}}
+            <option value="{{.}}" />
+        {{end}}
     </datalist>
-    <datalist id="data_labels">
-        {{.DataLabels}}
+    <datalist id="list_labels">
+        {{range .Labels}}
+        <option value="{{.}}" />
+        {{end}}
     </datalist>
-    <datalist id="data_titles">
-        {{.DataTitles}}
+    <datalist id="list_titles">
+        {{range .Titles}}
+        <option value="{{.}}" />
+        {{end}}
     </datalist>
-    <datalist id="data_releases">
-        {{.DataReleases}}
+    <datalist id="list_releases">
+        {{range .Releases}}
+        <option value="{{.}}" />
+        {{end}}
     </datalist>
-    <form action="add_release_action.html" method="POST" autocomplete="on">
+    <form action="?action=add" method="POST">
         <table>
             <tbody>
                 <tr>
                     <td>Artist:</td>
                     <td>
-                        <input type="text" list="data_artists" placeholder="Artist" />
+                        <input name="artist" type="text" list="list_artists" placeholder="Artist" />
                     </td>
                 </tr>
                 <tr>
                     <td>Title:</td>
                     <td>
-                        <input type="text" list="data_titles" placeholder="Title" />
+                        <input name="title" type="text" list="list_titles" placeholder="Title" />
                     </td>
                 </tr>
                 <tr>
                     <td>Label:</td>
                     <td>
-                        <input type="text" list="data_labels" placeholder="Label" />
+                        <input name="label" type="text" list="list_labels" placeholder="Label" />
                     </td>
                 </tr>
                 <tr>
                     <td>Release:</td>
                     <td>
-                        <input type="text" list="data_releases" placeholder="Release" />
+                        <input name="release" type="text" list="list_releases" placeholder="Release" />
                     </td>
                 </tr>
             </tbody>
