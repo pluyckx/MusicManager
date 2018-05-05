@@ -8,13 +8,15 @@ type Database struct {
 	path string
 	db   *sql.DB
 
-	artistsTable *ArtistsTable
+	artistsTable    *ArtistsTable
+	componistsTable *ComponistsTable
 }
 
 func NewDatabase(path string) *Database {
 	db := Database{path: path}
 
 	db.artistsTable = NewArtistTable(&db)
+	db.componistsTable = NewComponistTable(&db)
 
 	return &db
 }
@@ -34,6 +36,10 @@ func (db *Database) Init() error {
 	db.MustOpen()
 
 	if err := db.artistsTable.Init(); err != nil { //nolint This way it is easy to add extra tables in the future without the need to verify older code
+		return err
+	}
+
+	if err := db.componistsTable.Init(); err != nil {
 		return err
 	}
 
